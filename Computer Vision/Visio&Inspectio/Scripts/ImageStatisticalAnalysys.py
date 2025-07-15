@@ -147,7 +147,6 @@ class ImageProcessorApp:
         self.img_real, self.real_image_path = self.load_image_dialog()
         if self.img_real is not None:
             messagebox.showinfo("Real Image Loaded", f"Real image loaded: {os.path.basename(self.real_image_path)}")
-            # Opzionalmente, mostra l'immagine caricata immediatamente in una finestra Matplotlib
             self.display_image_matplotlib(self.img_real, "Real image")
             self.img_real_blurred = preprocess_images(self.img_real)
 
@@ -155,20 +154,18 @@ class ImageProcessorApp:
         self.img_ar_edges, self.ar_image_path = self.load_image_dialog()
         if self.img_ar_edges is not None:
             messagebox.showinfo("AR Image Loaded", f"AR edges image loaded: {os.path.basename(self.ar_image_path)}")
-            # Opzionalmente, mostra l'immagine AR caricata immediatamente in una finestra Matplotlib
             self.display_image_matplotlib(self.img_ar_edges, "AR image")
             self.img_ar_edges_blurred = preprocess_images(self.img_ar_edges)
 
     def display_image_matplotlib(self, img_cv, title="Immagine"):
         """Display an image using Matplotlib."""
         if img_cv is not None:
-            plt.figure(title) # Crea una nuova figura con il titolo specificato
-            plt.imshow(img_cv, cmap='gray') # Mostra l'immagine in scala di grigi
+            plt.figure(title)
+            plt.imshow(img_cv, cmap='gray') 
             plt.title(title)
-            plt.axis('off') # Nasconde gli assi
-            plt.show(block=False) # Mostra la figura senza bloccare l'interfaccia Tkinter
-                                 # Sarà necessario plt.show() alla fine del process_images
-                                 # per assicurarsi che tutte le figure vengano visualizzate.
+            plt.axis('off')
+            plt.show(block=False)
+
 
     def process_images(self):
         if self.img_real_blurred is None or self.img_ar_edges_blurred is None:
@@ -193,14 +190,11 @@ class ImageProcessorApp:
 
         self.edges_result = cv2.Canny(self.img_real_blurred, low_threshold, high_threshold)
 
-        # Visualizza i risultati in finestre Matplotlib separate
         self.display_image_matplotlib(self.img_real, "Real image (Grayscale)")
         self.display_image_matplotlib(self.edges_result, f"Canny Edges (L={low_threshold}, H={high_threshold})")
 
-        # Salva le immagini
         self.save_processed_images(low_threshold, high_threshold)
 
-        # Visualizza gli istogrammi in una finestra Matplotlib separata
         plt.figure(figsize=(12, 5))
         plt.subplot(1, 2, 1)
         plt.title('Real Image Histogram')
@@ -215,8 +209,6 @@ class ImageProcessorApp:
         plt.ylabel('Probability')
         plt.tight_layout()
 
-        # Blocca l'esecuzione finché tutte le figure Matplotlib non vengono chiuse
-        # Questo è importante per assicurarsi che le finestre rimangano aperte.
         plt.show()
 
         messagebox.showinfo("Processing Complete", f"Canny edges extracted with thresholds: Low={low_threshold}, High={high_threshold}")
@@ -252,7 +244,7 @@ class ImageProcessorApp:
             print(f"Saved Canny result to: {save_path_canny}")
             messagebox.showinfo("Images Saved", f"Processed images saved to:\n{save_dir}")
 
-# --- Main Application ---
+            
 if __name__ == "__main__":
     root = tk.Tk()
     app = ImageProcessorApp(root)
