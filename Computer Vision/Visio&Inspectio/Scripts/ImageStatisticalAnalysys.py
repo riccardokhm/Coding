@@ -6,7 +6,7 @@ from sklearn.mixture import GaussianMixture # EM and Mixture of Gaussians
 import tkinter as tk
 from tkinter import filedialog, messagebox
 from PIL import Image, ImageTk
-import os # Import for path manipulation
+import os
 
 def preprocess_images(img):
     """
