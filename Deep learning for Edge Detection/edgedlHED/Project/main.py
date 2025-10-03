@@ -4,36 +4,36 @@ import os
 import torch
 
 def run_conversion():
-    print("\nStarting dataset conversion...")
+    print("\n🌀 Starting dataset conversion...")
     script_path = os.path.join(os.path.dirname(__file__), "convert_bsds500_mat_to_png.py")
     subprocess.run(["python", script_path])
-    print("Conversion completed.\n")
+    print("✅ Conversion completed.\n")
 
 def run_training(debug=False):
-    print("\nStarting model training...")
+    print("\n🚀 Starting model training...")
     script_path = os.path.join(os.path.dirname(__file__), "train.py")
     args = ["python", script_path]
     if debug:
         args.append("--debug")
     subprocess.run(args)
-    print("Training completed.\n")
+    print("✅ Training completed.\n")
 
 
 def run_inference():
-    print("\nStarting inference on real images...")
+    print("\n🔍 Starting inference on real images...")
     script_path = os.path.join(os.path.dirname(__file__), "infer.py")
     subprocess.run(["python", script_path])
-    print("Inference completed.\n")
+    print("✅ Inference completed.\n")
 
 def check_cuda():
     if not torch.cuda.is_available():
-        print("CUDA not starting. Verify drivers and GPU compatibility!")
+        print("❌ CUDA not starting. Verify drivers and GPU compatibility!")
         sys.exit(1)
     else:
-        print("GPU found:", torch.cuda.get_device_name(0))
+        print("✅ GPU found:", torch.cuda.get_device_name(0))
 
 def show_menu():
-    print("\nOption selection:")
+    print("\n📋 Option selection:")
     print("1. Start dataset conversion")
     print("2. Start training (without debug)")
     print("3. Start training (with debug)")
@@ -45,7 +45,7 @@ if __name__ == "__main__":
 
     while True:
         show_menu()
-        choice = input("Insert operation number: ").strip()
+        choice = input("👉 Insert operation number: ").strip()
 
         if choice == '1':
             run_conversion()
@@ -56,8 +56,8 @@ if __name__ == "__main__":
         elif choice == '4':
             run_inference()
         elif choice == '5':
-            print("Exit from launcher.")
+            print("👋 Exit from launcher.")
             break
         else:
-            print("Wrong choice. Retry!.")
+            print("❗ Wrong choice. Retry!.")
     
