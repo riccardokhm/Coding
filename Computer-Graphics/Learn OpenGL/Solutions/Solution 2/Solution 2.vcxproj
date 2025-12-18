@@ -72,8 +72,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>C:\Users\utente\Desktop\Coding\Github\Coding\Computer-Graphics\Learn OpenGL\Include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\utente\Desktop\Coding\Github\Coding\Computer-Graphics\Learn OpenGL\Libs;$(LibraryPath)</LibraryPath>
+    <IncludePath>K:\Riccardo\Github\Coding\Computer-Graphics\Learn OpenGL\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\utente\Desktop\Coding\Github\Coding\Computer-Graphics\Learn OpenGL\Libs;K:\Riccardo\Github\Coding\Computer-Graphics\Learn OpenGL\Libs;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -107,7 +107,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;_SOLUTIONDIR=R"($(SolutionDir))";%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
@@ -145,6 +145,9 @@
   <ItemGroup>
     <Image Include="..\..\..\..\..\..\..\Downloads\Floor.jpg" />
     <Image Include="Wall.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Main.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

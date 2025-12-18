@@ -1,10 +1,18 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 #include <iostream>
+#include <string>
 #include "Shader.h"	
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "STB/stb_image.h"
+#include "Main.h"
+
+using namespace std;
+using namespace glm;
 
 #pragma region Fields
 
@@ -15,8 +23,10 @@ int width, height, nrChannels;
 char infoLog[512];
 bool isWireframe = false;
 
-char filePathTexture1[] = "C:\\Users\\utente\\Desktop\\Coding\\Github\\Coding\\Computer-Graphics\\Learn OpenGL\\Solutions\\Solution 2\\Floor.jpg";
-char filePathTexture2[] = "C:\\Users\\utente\\Desktop\\Coding\\Github\\Coding\\Computer-Graphics\\Learn OpenGL\\Solutions\\Solution 2\\Wall.jpg";
+// Usa std::string per concatenare percorsi
+string solutionDir = _SOLUTIONDIR;
+string filePathTexture1 = solutionDir + "Floor.jpg";
+string filePathTexture2 = solutionDir + "Wall.jpg";
 
 
 float vertices[] = {
@@ -37,6 +47,24 @@ unsigned int indices[] = {
 
 
 #pragma region Methods
+
+void transformation1()
+{
+	vec4 vec = vec4(1.0f, 0.0f, 0.0f, 1.0f);
+	mat4 trans = mat4(1.0f);
+	trans = translate(trans, vec3(1.0f, 1.0f, 0.0f));
+	vec = trans * vec;
+
+	cout << vec.x << ", " << vec.y << ", " << vec.z << ", " << vec.w << endl;
+}
+
+mat4 scaleRotate() 
+{
+	mat4 trans = mat4(1.0f);
+	trans = rotate(trans, radians(90.0f), vec3(0.0f, 0.0f, 1.0f));	
+	trans = scale(trans, vec3(0.5f, 0.5f, 0.5f));	
+	return trans;
+}
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
@@ -134,7 +162,7 @@ int main()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-	unsigned char* data = stbi_load(filePathTexture1, &width, &height, &nrChannels, 0);
+	unsigned char* data = stbi_load(filePathTexture1.c_str(), &width, &height, &nrChannels, 0);
 
 	if (data)
 	{
@@ -160,7 +188,7 @@ int main()
 	// set texture filtering parameters
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	data = stbi_load(filePathTexture2, &width, &height, &nrChannels, 0);
+	data = stbi_load(filePathTexture2.c_str(), &width, &height, &nrChannels, 0);
 
 	if (data)
 	{
@@ -179,6 +207,9 @@ int main()
 	glUniform1i(glGetUniformLocation(ourShader.ID, "texture1"), 0);	
 	glUniform1i(glGetUniformLocation(ourShader.ID, "texture2"), 1);
 
+	//transformation1();
+	mat4 trans = scaleRotate();
+
 	while (!glfwWindowShouldClose(window))
 	{
 
@@ -188,7 +219,10 @@ int main()
 		// Update the uniform green color
 		float timeValue = glfwGetTime();
 		float greenValue = (sin(timeValue) / 2.0f) + 0.5f;
+
 		//int vertexColorLocation = glGetUniformLocation(shaderProgram, "ourColor");
+		unsigned int transformLoc = glGetUniformLocation(ourShader.ID, "transform");
+		glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(trans));
 
 		//rendering commands
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);

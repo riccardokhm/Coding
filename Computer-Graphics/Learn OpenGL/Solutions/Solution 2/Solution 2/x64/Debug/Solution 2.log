@@ -1,4 +1,4 @@
 ﻿  Main.cpp
-C:\Users\utente\Desktop\Coding\Github\Coding\Computer-Graphics\Learn OpenGL\Solutions\Solution 2\Main.cpp(237,19): warning C4244: 'inizializzazione': conversione da 'double' a 'float'. Possibile perdita di dati.
+K:\Riccardo\Github\Coding\Computer-Graphics\Learn OpenGL\Solutions\Solution 2\Main.cpp(220,19): warning C4244: 'inizializzazione': conversione da 'double' a 'float'. Possibile perdita di dati.
 Solution 2\x64\Debug\Shader.obj : warning LNK4042: oggetto specificato più di una volta; occorrenze supplementari ignorate
-  Solution 2.vcxproj -> C:\Users\utente\Desktop\Coding\Github\Coding\Computer-Graphics\Learn OpenGL\Solutions\Solution 2\x64\Debug\Solution 2.exe
+  Solution 2.vcxproj -> K:\Riccardo\Github\Coding\Computer-Graphics\Learn OpenGL\Solutions\Solution 2\x64\Debug\Solution 2.exe
