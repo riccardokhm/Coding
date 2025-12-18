@@ -129,7 +129,6 @@ int main()
 	glGenBuffers(1, &EBO);
 	glBindVertexArray(VAO);
 
-	
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
@@ -207,11 +206,21 @@ int main()
 	glUniform1i(glGetUniformLocation(ourShader.ID, "texture1"), 0);	
 	glUniform1i(glGetUniformLocation(ourShader.ID, "texture2"), 1);
 
+	// Apply initial transformations
 	//transformation1();
-	mat4 trans = scaleRotate();
+	//mat4 trans = scaleRotate();
 
 	while (!glfwWindowShouldClose(window))
 	{
+		// Create a time-based rotation transformation
+		mat4 rot = mat4(1.0f);
+		rot = rotate(rot, (float)glfwGetTime(), vec3(0.0f, 0.0f, 1.0f));
+		rot = translate(rot, vec3(0.5f, -0.5f, 0.0f));
+
+		float scaleFactor = abs(sin(glfwGetTime()));
+		mat4 scale = mat4(1.0f);
+		scale = glm::scale(scale, vec3(scaleFactor, scaleFactor, 1.0f));
+
 
 		//events
 		processInput(window);
@@ -219,10 +228,10 @@ int main()
 		// Update the uniform green color
 		float timeValue = glfwGetTime();
 		float greenValue = (sin(timeValue) / 2.0f) + 0.5f;
+		int vertexColorLocation = glGetUniformLocation(shaderProgram, "ourColor");
 
-		//int vertexColorLocation = glGetUniformLocation(shaderProgram, "ourColor");
 		unsigned int transformLoc = glGetUniformLocation(ourShader.ID, "transform");
-		glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(trans));
+		glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(rot));
 
 		//rendering commands
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
@@ -236,8 +245,10 @@ int main()
 		glBindTexture(GL_TEXTURE_2D, texture2);
 
 		glBindVertexArray(VAO);
-		//glDrawArrays(GL_TRIANGLES, 0, 3);
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0); // Draw the triangles using the indices
+
+		glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(scale));
+		glDrawElements(GL_LINE_STRIP, 6, GL_UNSIGNED_INT, 0); // Draw the outline using the indices
 
 		//check and call events and swap the buffers
 		glfwSwapBuffers(window);
