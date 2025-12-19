@@ -1,0 +1,7 @@
+# Ignore Visual Studio Code settings folder
+/.vscode
+
+# Ignore VSCode files related to compilation
+*.pdb
+*.obj
+*.ilk
