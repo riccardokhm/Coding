@@ -6,6 +6,7 @@ using namespace std;
 
 int main(){
 
+
     cout << "Choose the exercise to run (1-3): " << endl;
     cout << "1. Find duplicated value in an array" << endl;
     cout << "2. Compare strings without keeping in consideration the case" << endl;
@@ -32,6 +33,7 @@ int main(){
         cout << "Invalid choice. Please select a valid option." << endl;
     }
 }
+
 
 void findDuplicateInArray() {
     const int SIZE = 10;
