@@ -4,10 +4,19 @@
 using namespace std;
 
 class Help{
+    int id;
+
     public:
     void helpon(char topic);
     void showmenu();
     bool isvalid(char ch);
+    int get_id(){
+        return id;
+    }
+
+    Help(){
+        id = 0;
+    }
 };
 
 void Help::helpon(char topic){
