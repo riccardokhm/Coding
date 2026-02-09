@@ -10,3 +10,8 @@
 /Learn OpenGL/Solutions/Solution 1/.vs
 
 
+*.ipch
+*.suo
+*.user
+*.db
+*.opendb
