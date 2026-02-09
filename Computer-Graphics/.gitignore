@@ -4,10 +4,10 @@
 
 /Computer-Graphics/.vs
 /Learn OpenGL/.vs
-/Learn OpenGL/Solutions/Solution 2/.vs
-/Learn OpenGL/Solutions/Solution 2/.vs
+
 /Learn OpenGL/Solutions/Solution 1/.vs
-/Learn OpenGL/Solutions/Solution 1/.vs
+/Learn OpenGL/Solutions/Solution 2/.vs
+/Learn OpenGL/Solutions/Solution 3/.vs
 
 
 *.ipch
@@ -15,3 +15,4 @@
 *.user
 *.db
 *.opendb
+*.VC.db
