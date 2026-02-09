@@ -15,5 +15,5 @@ void main()
     //FragColor = mix(texture(texture1, TexCoord), texture(texture2, TexCoord), 1.0f);
 
     // Using only the second texture multiplied by vertex color
-    FragColor = texture(texture2, TexCoord) * vec4(ourColor, 1.0);
+    FragColor = texture(texture2, TexCoord);// * vec4(ourColor, 1.0);
 };
