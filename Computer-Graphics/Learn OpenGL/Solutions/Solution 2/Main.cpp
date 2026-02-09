@@ -38,6 +38,50 @@ float vertices[] = {
 	 -0.5f, -0.5f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f // bottom left
 };
 
+float cubeVertices[] = {
+	-0.5f, -0.5f, -0.5f, 0.0f, 0.0f,
+	0.5f, -0.5f, -0.5f,1.0f,0.0f,
+	0.5f, 0.5f, -0.5f,1.0f, 1.0f,
+	0.5f, 0.5f, -0.5f, 1.0f, 1.0f, 
+	-0.5f, 0.5f,-0.5f, 0.0f, 1.0f,
+	-0.5f,-0.5f, -0.5f, 0.0f,0.0f,
+
+	-0.5f,-0.5f, 0.5f, 0.0f, 0.0f, 
+	0.5f,-0.5f, 0.5f, 1.0f,0.0f,
+	0.5f, 0.5f, 0.5f, 1.0f, 1.0f, 
+	0.5f, 0.5f, 0.5f, 1.0f, 1.0f,
+	-0.5f, 0.5f, 0.5f,0.0f, 1.0f,
+	-0.5f, -0.5f, 0.5f,0.0f, 0.0f,
+
+	-0.5f,0.5f, 0.5f, 1.0f, 0.0f,
+	-0.5f, 0.5f, -0.5f,1.0f, 1.0f,
+	-0.5f, -0.5f, -0.5f, 0.0f, 1.0f,
+	-0.5f, -0.5f, -0.5f, 0.0f, 1.0f,
+	-0.5f, -0.5f, 0.5f, 0.0f, 0.0f,
+	-0.5f, 0.5f, 0.5f, 1.0f, 0.0f,
+
+	0.5f, 0.5f, 0.5f, 1.0f, 0.0f,
+	0.5f,0.5f, -0.5f, 1.0f,1.0f,
+	0.5f, -0.5f, -0.5f, 0.0f, 1.0f,
+	0.5f, -0.5f, -0.5f, 0.0f, 1.0f, 
+	0.5f, -0.5f, 0.5f,0.0f, 0.0f,
+	0.5f, 0.5f, 0.5f, 1.0f, 0.0f,
+
+	-0.5f, -0.5f, -0.5f, 0.0f, 1.0f, 
+	0.5f, -0.5f, -0.5f, 1.0f, 1.0f,
+	0.5f, -0.5f,0.5f, 1.0f, 0.0f,
+	0.5f, -0.5f, 0.5f, 1.0f, 0.0f, 
+	-0.5f, -0.5f, 0.5f, 0.0f, 0.0f,
+	-0.5f, -0.5f, -0.5f, 0.0f, 1.0f,
+
+	-0.5f, 0.5f, -0.5f, 0.0f, 1.0f, 
+	0.5f, 0.5f, -0.5f, 1.0f, 1.0f, 
+	0.5f, 0.5f, 0.5f, 1.0f, 1.0f, 
+	0.5f, 0.5f, 0.5f, 1.0f, 0.0f, 
+	-0.5f, 0.5f, 0.5f, 0.0f, 0.0f, 
+	-0.5f, 0.5f, -0.5f, 0.0f, 1.0f
+};
+
 unsigned int indices[] = {
 	0, 1, 2, // first triangle
 	2, 3, 0  // second triangle
@@ -130,7 +174,7 @@ int main()
 	glBindVertexArray(VAO);
 
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(cubeVertices), cubeVertices, GL_STATIC_DRAW);
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
@@ -210,16 +254,29 @@ int main()
 	//transformation1();
 	//mat4 trans = scaleRotate();
 
+	// Move backwards elements in scene to render from distance
+	mat4 model = mat4(1.0f);
+	model = rotate(model, radians(-55.0f), vec3(1.0f, 0.0f, 0.0f));
+
+	mat4 view = mat4(1.0f);
+	view = translate(view, vec3(0.0f, 0.0f, -3.0f));
+
+	mat4 projection;
+	projection = perspective(radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
+
 	while (!glfwWindowShouldClose(window))
 	{
 		// Create a time-based rotation transformation
-		mat4 rot = mat4(1.0f);
+		/*mat4 rot = mat4(1.0f);
 		rot = rotate(rot, (float)glfwGetTime(), vec3(0.0f, 0.0f, 1.0f));
 		rot = translate(rot, vec3(0.5f, -0.5f, 0.0f));
 
 		float scaleFactor = abs(sin(glfwGetTime()));
 		mat4 scale = mat4(1.0f);
-		scale = glm::scale(scale, vec3(scaleFactor, scaleFactor, 1.0f));
+		scale = glm::scale(scale, vec3(scaleFactor, scaleFactor, 1.0f));*/
+
+		model = rotate(model, (float)glfwGetTime() * radians(50.0f), vec3(0.5f, 1.0f, 0.0f));
+
 
 
 		//events
@@ -230,8 +287,18 @@ int main()
 		float greenValue = (sin(timeValue) / 2.0f) + 0.5f;
 		int vertexColorLocation = glGetUniformLocation(shaderProgram, "ourColor");
 
-		unsigned int transformLoc = glGetUniformLocation(ourShader.ID, "transform");
-		glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(rot));
+		int modelLoc = glGetUniformLocation(ourShader.ID, "model");
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, value_ptr(model));
+
+		int viewLoc = glGetUniformLocation(ourShader.ID, "view");
+		glUniformMatrix4fv(viewLoc, 1, GL_FALSE, value_ptr(view));
+
+		int projectiveLoc = glGetUniformLocation(ourShader.ID, "projection");
+		glUniformMatrix4fv(projectiveLoc, 1, GL_FALSE, value_ptr(projection));
+
+
+		//unsigned int transformLoc = glGetUniformLocation(ourShader.ID, "transform");
+		//glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(rot));
 
 		//rendering commands
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
@@ -245,9 +312,10 @@ int main()
 		glBindTexture(GL_TEXTURE_2D, texture2);
 
 		glBindVertexArray(VAO);
-		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0); // Draw the triangles using the indices
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+		//glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0); // Draw the triangles using the indices
 
-		glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(scale));
+		//glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(scale));
 		glDrawElements(GL_LINE_STRIP, 6, GL_UNSIGNED_INT, 0); // Draw the outline using the indices
 
 		//check and call events and swap the buffers

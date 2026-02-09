@@ -1,17 +1,20 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "K:\\Riccardo\\Github\\Coding\\Computer-Graphics\\Learn OpenGL\\Solutions\\Solution 2\\",
+  "WorkspaceRootPath": "C:\\Users\\utente\\Desktop\\Coding\\Github\\Coding\\Computer-Graphics\\Learn OpenGL\\Solutions\\Solution 2\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{9CA5EFE8-4822-4268-80BD-E3B78AF48947}|Solution 2.vcxproj|K:\\Riccardo\\Github\\Coding\\Computer-Graphics\\Learn OpenGL\\Solutions\\Solution 2\\Main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{9CA5EFE8-4822-4268-80BD-E3B78AF48947}|Solution 2.vcxproj|C:\\Users\\utente\\Desktop\\Coding\\Github\\Coding\\Computer-Graphics\\Learn OpenGL\\Solutions\\Solution 2\\Main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{9CA5EFE8-4822-4268-80BD-E3B78AF48947}|Solution 2.vcxproj|solutionrelative:Main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9CA5EFE8-4822-4268-80BD-E3B78AF48947}|Solution 2.vcxproj|K:\\Riccardo\\Github\\Coding\\Computer-Graphics\\Learn OpenGL\\Solutions\\Solution 2\\Fragment.frag||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\utente\\Desktop\\Coding\\Github\\Coding\\Computer-Graphics\\Learn OpenGL\\Solutions\\Solution 1\\Main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9CA5EFE8-4822-4268-80BD-E3B78AF48947}|Solution 2.vcxproj|C:\\Users\\utente\\Desktop\\Coding\\Github\\Coding\\Computer-Graphics\\Learn OpenGL\\Solutions\\Solution 2\\Fragment.frag||{8B382828-6202-11D1-8870-0000F87579D2}",
       "RelativeMoniker": "D:0:0:{9CA5EFE8-4822-4268-80BD-E3B78AF48947}|Solution 2.vcxproj|solutionrelative:Fragment.frag||{8B382828-6202-11D1-8870-0000F87579D2}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9CA5EFE8-4822-4268-80BD-E3B78AF48947}|Solution 2.vcxproj|K:\\Riccardo\\Github\\Coding\\Computer-Graphics\\Learn OpenGL\\Solutions\\Solution 2\\Vertex.vert||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "AbsoluteMoniker": "D:0:0:{9CA5EFE8-4822-4268-80BD-E3B78AF48947}|Solution 2.vcxproj|C:\\Users\\utente\\Desktop\\Coding\\Github\\Coding\\Computer-Graphics\\Learn OpenGL\\Solutions\\Solution 2\\Vertex.vert||{8B382828-6202-11D1-8870-0000F87579D2}",
       "RelativeMoniker": "D:0:0:{9CA5EFE8-4822-4268-80BD-E3B78AF48947}|Solution 2.vcxproj|solutionrelative:Vertex.vert||{8B382828-6202-11D1-8870-0000F87579D2}"
     }
   ],
@@ -22,7 +25,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Bookmark",
@@ -39,10 +42,23 @@
             {
               "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "Main.cpp",
+              "DocumentMoniker": "C:\\Users\\utente\\Desktop\\Coding\\Github\\Coding\\Computer-Graphics\\Learn OpenGL\\Solutions\\Solution 1\\Main.cpp",
+              "RelativeDocumentMoniker": "..\\Solution 1\\Main.cpp",
+              "ToolTip": "C:\\Users\\utente\\Desktop\\Coding\\Github\\Coding\\Computer-Graphics\\Learn OpenGL\\Solutions\\Solution 1\\Main.cpp",
+              "RelativeToolTip": "..\\Solution 1\\Main.cpp",
+              "ViewState": "AgIAAP8AAAAAAAAAAAAAABQBAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-02-09T11:33:57.003Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "Fragment.frag",
-              "DocumentMoniker": "K:\\Riccardo\\Github\\Coding\\Computer-Graphics\\Learn OpenGL\\Solutions\\Solution 2\\Fragment.frag",
+              "DocumentMoniker": "C:\\Users\\utente\\Desktop\\Coding\\Github\\Coding\\Computer-Graphics\\Learn OpenGL\\Solutions\\Solution 2\\Fragment.frag",
               "RelativeDocumentMoniker": "Fragment.frag",
-              "ToolTip": "K:\\Riccardo\\Github\\Coding\\Computer-Graphics\\Learn OpenGL\\Solutions\\Solution 2\\Fragment.frag",
+              "ToolTip": "C:\\Users\\utente\\Desktop\\Coding\\Github\\Coding\\Computer-Graphics\\Learn OpenGL\\Solutions\\Solution 2\\Fragment.frag",
               "RelativeToolTip": "Fragment.frag",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
@@ -51,13 +67,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "Vertex.vert",
-              "DocumentMoniker": "K:\\Riccardo\\Github\\Coding\\Computer-Graphics\\Learn OpenGL\\Solutions\\Solution 2\\Vertex.vert",
+              "DocumentMoniker": "C:\\Users\\utente\\Desktop\\Coding\\Github\\Coding\\Computer-Graphics\\Learn OpenGL\\Solutions\\Solution 2\\Vertex.vert",
               "RelativeDocumentMoniker": "Vertex.vert",
-              "ToolTip": "K:\\Riccardo\\Github\\Coding\\Computer-Graphics\\Learn OpenGL\\Solutions\\Solution 2\\Vertex.vert",
+              "ToolTip": "C:\\Users\\utente\\Desktop\\Coding\\Github\\Coding\\Computer-Graphics\\Learn OpenGL\\Solutions\\Solution 2\\Vertex.vert",
               "RelativeToolTip": "Vertex.vert",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAcAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
               "WhenOpened": "2025-12-17T16:13:26.855Z",
               "EditorCaption": ""
@@ -66,11 +82,11 @@
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "Main.cpp",
-              "DocumentMoniker": "K:\\Riccardo\\Github\\Coding\\Computer-Graphics\\Learn OpenGL\\Solutions\\Solution 2\\Main.cpp",
+              "DocumentMoniker": "C:\\Users\\utente\\Desktop\\Coding\\Github\\Coding\\Computer-Graphics\\Learn OpenGL\\Solutions\\Solution 2\\Main.cpp",
               "RelativeDocumentMoniker": "Main.cpp",
-              "ToolTip": "K:\\Riccardo\\Github\\Coding\\Computer-Graphics\\Learn OpenGL\\Solutions\\Solution 2\\Main.cpp",
+              "ToolTip": "C:\\Users\\utente\\Desktop\\Coding\\Github\\Coding\\Computer-Graphics\\Learn OpenGL\\Solutions\\Solution 2\\Main.cpp",
               "RelativeToolTip": "Main.cpp",
-              "ViewState": "AgIAAN8AAAAAAAAAAAAAAPUAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAP4AAAAAAAAAAAAqwBYBAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-03-05T14:34:08.886Z",
               "EditorCaption": ""
