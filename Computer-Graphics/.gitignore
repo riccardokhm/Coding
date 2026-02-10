@@ -9,6 +9,9 @@
 /Learn OpenGL/Solutions/Solution 2/.vs
 /Learn OpenGL/Solutions/Solution 3/.vs
 
+/Learn OpenGL/Solutions/Solution 1/x64
+/Learn OpenGL/Solutions/Solution 2/x64
+/Learn OpenGL/Solutions/Solution 3/x64
 
 *.ipch
 *.suo
