@@ -72,6 +72,8 @@ float cubeVertices[] = {
 	-0.5f, 0.5f, -0.5f, 0.0f, 1.0f
 };
 
+float deltaTime, lastFrame;
+float pitch, yaw;
 
 // Set camera position
 vec3 cameraPos = vec3(0.0f, 0.0f, 3.0f);
@@ -106,6 +108,10 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 	glViewport(0, 0, width, height);
 }
 
+void mouse_callback(GLFWwindow* window, double xpos, double ypos) {
+
+}
+
 void processInput(GLFWwindow* window)
 {
 	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
@@ -126,7 +132,7 @@ void processInput(GLFWwindow* window)
 		}
 	}
 
-	const float cameraSpeed = 0.05f;
+	const float cameraSpeed = 2.5f * deltaTime;
 	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
 		cameraPos += cameraSpeed * cameraFront;
 	}
@@ -155,6 +161,7 @@ int main()
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+	
 
 	GLFWwindow* window = glfwCreateWindow(800, 600, "LearnOpenGL", NULL, NULL);
 	if (window == NULL)
@@ -166,6 +173,8 @@ int main()
 
 	glfwMakeContextCurrent(window);
 
+	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 	{
 		std::cout << "Failed to initialize GLAD " << std::endl;
@@ -173,7 +182,10 @@ int main()
 	}
 
 	glViewport(0, 0, 800, 600);
+
+	// Callbacks for input or user interaction with the current window
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+	glfwSetCursorPosCallback(window, mouse_callback);
 
 	glGenVertexArrays(1, &VAO);
 	glGenBuffers(1, &VBO);
@@ -276,8 +288,22 @@ int main()
 
 	const float radius = 10.0f;
 
+	// Setting initial value of the camera
+	yaw = 90.0f;
+	pitch = 0.0f; 
+
+	vec3 direction;
+	direction.x = cos(radians(yaw)) * cos(radians(pitch));
+	direction.y = sin(radians(pitch));
+	direction.z = sin(radians(yaw)) * cos(radians(pitch));
+
+
 	while (!glfwWindowShouldClose(window))
 	{
+		float currentFrame = glfwGetTime();
+		deltaTime = currentFrame - lastFrame;
+		lastFrame = currentFrame;
+
         //events
         processInput(window);
 
