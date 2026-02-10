@@ -1,0 +1,9 @@
+﻿  glad.c
+  Main.cpp
+C:\Users\utente\Desktop\Coding\Github\Coding\Computer-Graphics\Learn OpenGL\Solutions\Solution 3\Main.cpp(288,19): warning C4244: 'inizializzazione': conversione da 'double' a 'float'. Possibile perdita di dati.
+  Shader.cpp
+C:\Users\utente\Desktop\Coding\Github\Coding\Computer-Graphics\Learn OpenGL\Solutions\Solution 3\Shader.cpp(30,33): warning C4101: 'e': variabile locale senza riferimenti
+  Shader.h
+  Generazione del codice in corso...
+Solution 3\x64\Debug\Shader.obj : warning LNK4042: oggetto specificato più di una volta; occorrenze supplementari ignorate
+  Solution 2.vcxproj -> C:\Users\utente\Desktop\Coding\Github\Coding\Computer-Graphics\Learn OpenGL\Solutions\Solution 3\x64\Debug\Solution 3.exe

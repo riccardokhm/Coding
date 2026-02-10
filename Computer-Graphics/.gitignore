@@ -2,13 +2,20 @@
 # Il file gitignore è stato creato automaticamente da Microsoft(R) Visual Studio.
 ################################################################################
 
-/.vs/Computer-Graphics
-/Learn OpenGL/Solution 1/Solution 1/.vs/Solution 1/FileContentIndex/02851c7b-74ba-44d2-8770-a0353da3dfbb.vsidx
-/Learn OpenGL/Solution 1/Solution 1/.vs/Solution 1/FileContentIndex
-/Learn OpenGL/Solution 1/Solution 1/Solution 1/x64/Debug/Solution 1.tlog
-/Learn OpenGL/Solution 1/Solution 1/.vs/Solution 1/v17/Browse.VC.opendb
-/Learn OpenGL/Solution 1/Solution 1/.vs/Solution 1/v17/Browse.VC.db-wal
-/Learn OpenGL/Solution 1/Solution 1/.vs/Solution 1/v17/Browse.VC.db-shm
+/Computer-Graphics/.vs
 /Learn OpenGL/.vs
 
+/Learn OpenGL/Solutions/Solution 1/.vs
+/Learn OpenGL/Solutions/Solution 2/.vs
+/Learn OpenGL/Solutions/Solution 3/.vs
 
+/Learn OpenGL/Solutions/Solution 1/x64
+/Learn OpenGL/Solutions/Solution 2/x64
+/Learn OpenGL/Solutions/Solution 3/x64
+
+*.ipch
+*.suo
+*.user
+*.db
+*.opendb
+*.VC.db

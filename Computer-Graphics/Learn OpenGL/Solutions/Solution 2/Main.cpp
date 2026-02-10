@@ -38,10 +38,60 @@ float vertices[] = {
 	 -0.5f, -0.5f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f // bottom left
 };
 
+float cubeVertices[] = {
+	-0.5f, -0.5f, -0.5f, 0.0f, 0.0f,
+	0.5f, -0.5f, -0.5f,1.0f,0.0f,
+	0.5f, 0.5f, -0.5f,1.0f, 1.0f,
+	0.5f, 0.5f, -0.5f, 1.0f, 1.0f, 
+	-0.5f, 0.5f,-0.5f, 0.0f, 1.0f,
+	-0.5f,-0.5f, -0.5f, 0.0f,0.0f,
+
+	-0.5f,-0.5f, 0.5f, 0.0f, 0.0f, 
+	0.5f,-0.5f, 0.5f, 1.0f,0.0f,
+	0.5f, 0.5f, 0.5f, 1.0f, 1.0f, 
+	0.5f, 0.5f, 0.5f, 1.0f, 1.0f,
+	-0.5f, 0.5f, 0.5f,0.0f, 1.0f,
+	-0.5f, -0.5f, 0.5f,0.0f, 0.0f,
+
+	-0.5f,0.5f, 0.5f, 1.0f, 0.0f,
+	-0.5f, 0.5f, -0.5f,1.0f, 1.0f,
+	-0.5f, -0.5f, -0.5f, 0.0f, 1.0f,
+	-0.5f, -0.5f, -0.5f, 0.0f, 1.0f,
+	-0.5f, -0.5f, 0.5f, 0.0f, 0.0f,
+	-0.5f, 0.5f, 0.5f, 1.0f, 0.0f,
+
+	0.5f, 0.5f, 0.5f, 1.0f, 0.0f,
+	0.5f,0.5f, -0.5f, 1.0f,1.0f,
+	0.5f, -0.5f, -0.5f, 0.0f, 1.0f,
+	0.5f, -0.5f, -0.5f, 0.0f, 1.0f, 
+	0.5f, -0.5f, 0.5f,0.0f, 0.0f,
+	0.5f, 0.5f, 0.5f, 1.0f, 0.0f,
+
+	-0.5f, -0.5f, -0.5f, 0.0f, 1.0f, 
+	0.5f, -0.5f, -0.5f, 1.0f, 1.0f,
+	0.5f, -0.5f,0.5f, 1.0f, 0.0f,
+	0.5f, -0.5f, 0.5f, 1.0f, 0.0f, 
+	-0.5f, -0.5f, 0.5f, 0.0f, 0.0f,
+	-0.5f, -0.5f, -0.5f, 0.0f, 1.0f,
+
+	-0.5f, 0.5f, -0.5f, 0.0f, 1.0f, 
+	0.5f, 0.5f, -0.5f, 1.0f, 1.0f, 
+	0.5f, 0.5f, 0.5f, 1.0f, 1.0f, 
+	0.5f, 0.5f, 0.5f, 1.0f, 0.0f, 
+	-0.5f, 0.5f, 0.5f, 0.0f, 0.0f, 
+	-0.5f, 0.5f, -0.5f, 0.0f, 1.0f
+};
+
 unsigned int indices[] = {
 	0, 1, 2, // first triangle
 	2, 3, 0  // second triangle
 };
+
+
+// Set camera position
+vec3 cameraPos = vec3(0.0f, 0.0f, 3.0f);
+vec3 cameraFront = vec3(0.0f, 0.0f, -1.0f);
+vec3 cameraUp = vec3(0.0f, 1.0f, 0.0f);
 
 #pragma endregion
 
@@ -78,17 +128,33 @@ void processInput(GLFWwindow* window)
 
 	if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
 	{
+		// toggle wireframe / fill
 		if (!isWireframe)
 		{
-			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL); // Wireframe mode
+			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); // Wireframe mode
 			isWireframe = true;
 		}
 		else
 		{
-			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); // Fill mode
+			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL); // Fill mode
 			isWireframe = false;
 		}
 	}
+
+	const float cameraSpeed = 0.05f;
+	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
+		cameraPos += cameraSpeed * cameraFront;
+	}
+	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
+		cameraPos -= cameraSpeed * cameraFront;
+	}
+	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS){
+		cameraPos -= normalize(cross(cameraFront, cameraUp)) * cameraSpeed;
+	}
+	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS){
+		cameraPos += normalize(cross(cameraFront, cameraUp)) * cameraSpeed;
+	}
+
 		
 }
 
@@ -130,23 +196,34 @@ int main()
 	glBindVertexArray(VAO);
 
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(cubeVertices), cubeVertices, GL_STATIC_DRAW);
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
 
-	// Setting vertex attributes pointers
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
+	// IMPORTANT: cubeVertices layout is (position: vec3) + (texcoord: vec2) -> stride = 5 floats
+	constexpr GLsizei stride = 5 * sizeof(float);
+
+	// Position attribute
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, stride, (void*)0);
 	glEnableVertexAttribArray(0);
 
-	// Setting vertex attributes pointers for color
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
+	// TexCoord attribute (no color in cubeVertices)
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, stride, (void*)(3 * sizeof(float)));
 	glEnableVertexAttribArray(1);
 
-	// Setting vertex attributes pointers for texture coordinates
-	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
-	glEnableVertexAttribArray(2);
+	//// Setting vertex attributes pointers
+	//glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
+	//glEnableVertexAttribArray(0);
+
+	//// Setting vertex attributes pointers for color
+	//glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
+	//glEnableVertexAttribArray(1);
+
+	//// Setting vertex attributes pointers for texture coordinates
+	//glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
+	//glEnableVertexAttribArray(2);
 
 	Shader ourShader("Vertex.vert", "Fragment.frag");
 
@@ -206,36 +283,59 @@ int main()
 	glUniform1i(glGetUniformLocation(ourShader.ID, "texture1"), 0);	
 	glUniform1i(glGetUniformLocation(ourShader.ID, "texture2"), 1);
 
-	// Apply initial transformations
-	//transformation1();
-	//mat4 trans = scaleRotate();
+
+	vec3 cubePosition[] = {
+		vec3(0.0f, 0.0f, 0.0f),
+		vec3(2.0f, 5.0f, -15.0f),
+		vec3(-1.5f, -2.2f, -2.2f),
+		vec3(-3.8f, -2.0f, -12.3f),
+		vec3(2.4f, -0.4f, -3.5f),
+		vec3(-1.7f, 3.0f, -7.5f),
+		vec3(1.3f, -2.0f,-2.5f),
+		vec3(1.5f, 2.0f, -2.5f),
+		vec3(1.5f, 0.2f, -2.5f),
+		vec3(-1.3f, 1.0f, -1.5f)
+	};
+
+	mat4 view = mat4(1.0f);
+	view = translate(view, vec3(0.0f, 0.0f, -3.0f));
+
+	mat4 projection;
+	projection = perspective(radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
+
+	// Activating depth testing
+	glEnable(GL_DEPTH_TEST);
+
+	const float radius = 10.0f;
 
 	while (!glfwWindowShouldClose(window))
 	{
 		// Create a time-based rotation transformation
-		mat4 rot = mat4(1.0f);
+		/*mat4 rot = mat4(1.0f);
 		rot = rotate(rot, (float)glfwGetTime(), vec3(0.0f, 0.0f, 1.0f));
 		rot = translate(rot, vec3(0.5f, -0.5f, 0.0f));
 
 		float scaleFactor = abs(sin(glfwGetTime()));
 		mat4 scale = mat4(1.0f);
-		scale = glm::scale(scale, vec3(scaleFactor, scaleFactor, 1.0f));
+		scale = glm::scale(scale, vec3(scaleFactor, scaleFactor, 1.0f));*/
 
+		//model = rotate(model, (float)glfwGetTime() * radians(50.0f), vec3(0.5f, 1.0f, 0.0f));
+        //events
+        processInput(window);
 
-		//events
-		processInput(window);
+        // Recompute view matrix from camera position updated by WASD
+        view = lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
 
 		// Update the uniform green color
 		float timeValue = glfwGetTime();
 		float greenValue = (sin(timeValue) / 2.0f) + 0.5f;
-		int vertexColorLocation = glGetUniformLocation(shaderProgram, "ourColor");
 
-		unsigned int transformLoc = glGetUniformLocation(ourShader.ID, "transform");
-		glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(rot));
+		//unsigned int transformLoc = glGetUniformLocation(ourShader.ID, "transform");
+		//glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(rot));
 
 		//rendering commands
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 
 		//drawing commands
@@ -245,10 +345,30 @@ int main()
 		glBindTexture(GL_TEXTURE_2D, texture2);
 
 		glBindVertexArray(VAO);
-		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0); // Draw the triangles using the indices
+		for (unsigned int i = 0; i < 10; i++)
+		{
+			mat4 model = mat4(1.0f);
 
-		glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(scale));
-		glDrawElements(GL_LINE_STRIP, 6, GL_UNSIGNED_INT, 0); // Draw the outline using the indices
+			model = translate(model, cubePosition[i]);
+			float angle = 20.0f * i;
+			model = rotate(model, radians(angle), vec3(1.0f, 0.3f, 0.5f));
+
+			int modelLoc = glGetUniformLocation(ourShader.ID, "model");
+			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, value_ptr(model));
+
+			int viewLoc = glGetUniformLocation(ourShader.ID, "view");
+			glUniformMatrix4fv(viewLoc, 1, GL_FALSE, value_ptr(view));
+
+			int projectiveLoc = glGetUniformLocation(ourShader.ID, "projection");
+			glUniformMatrix4fv(projectiveLoc, 1, GL_FALSE, value_ptr(projection));
+
+			glDrawArrays(GL_TRIANGLES, 0, 36);
+		}
+		
+		//glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0); // Draw the triangles using the indices
+
+		//glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(scale));
+		//glDrawElements(GL_LINE_STRIP, 6, GL_UNSIGNED_INT, 0); // Draw the outline using the indices
 
 		//check and call events and swap the buffers
 		glfwSwapBuffers(window);
@@ -258,7 +378,7 @@ int main()
 	//  de allocate all resources once they've outlived their purpose:
 	glDeleteVertexArrays(1, &VAO);
 	glDeleteBuffers(1, &VBO);
-	glDeleteProgram(shaderProgram);
+	glDeleteProgram(ourShader.ID);
 
 	glfwTerminate();
 	return 0;
