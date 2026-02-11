@@ -38,6 +38,12 @@
     <None Include="Fragment.frag">
       <Filter>File di risorse</Filter>
     </None>
+    <None Include="FragmentLit.frag">
+      <Filter>File di risorse</Filter>
+    </None>
+    <None Include="VertexLit.vert">
+      <Filter>File di risorse</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\..\..\..\..\..\Downloads\Floor.jpg">
@@ -49,6 +55,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Main.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\..\..\..\Downloads\Camera.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
   </ItemGroup>

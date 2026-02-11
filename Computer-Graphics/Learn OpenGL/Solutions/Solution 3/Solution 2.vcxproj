@@ -140,13 +140,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Fragment.frag" />
+    <None Include="FragmentLit.frag" />
     <None Include="Vertex.vert" />
+    <None Include="VertexLit.vert" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\..\..\..\..\..\Downloads\Floor.jpg" />
     <Image Include="Wall.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\..\..\..\..\..\Downloads\Camera.h" />
     <ClInclude Include="Main.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

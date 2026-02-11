@@ -16,12 +16,16 @@ using namespace glm;
 
 #pragma region Fields
 
-unsigned int VBO, VAO, EBO, vertexShader, fragmentShader,fragmentShader1, shaderProgram, shaderProgram1, texture1, texture2;
+unsigned int VBO, VAO, lightVAO, EBO, vertexShader, fragmentShader,fragmentShader1, shaderProgram, shaderProgram1, texture1, texture2;
 
 int vertexShadsuccess, fragmentShadsucces, fragmentShadsuccess, linkShadsuccess;
 int width, height, nrChannels;
 char infoLog[512];
-bool isWireframe = false;
+bool isWireframe = false, isFirstMousePosition = true;
+
+// Mouse positions
+float lastX = 400;
+float lastY = 300;
 
 // Usa std::string per concatenare percorsi
 string solutionDir = _SOLUTIONDIR;
@@ -73,7 +77,7 @@ float cubeVertices[] = {
 };
 
 float deltaTime, lastFrame;
-float pitch, yaw;
+float pitchAngle, yawAngle, zoom;
 
 // Set camera position
 vec3 cameraPos = vec3(0.0f, 0.0f, 3.0f);
@@ -108,8 +112,54 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 	glViewport(0, 0, width, height);
 }
 
-void mouse_callback(GLFWwindow* window, double xpos, double ypos) {
+void mouse_callback(GLFWwindow* window, double xpos, double ypos) 
+{
+	if (isFirstMousePosition)
+	{
+		lastX = xpos;
+		lastY = ypos;
+		isFirstMousePosition = false;
+	}
+	float xoffset = xpos - lastX;
+	float yoffset = ypos - lastY;
 
+	lastX = xpos;
+	lastY = ypos;
+
+	const float sensitivity = 0.1f;
+	xoffset *= sensitivity;
+	yoffset *= sensitivity;
+
+	yawAngle += xoffset;
+	pitchAngle += yoffset;
+
+	if (pitchAngle > 89.0f)
+	{
+		pitchAngle = 89.0f;
+	}
+	if (pitchAngle < -89.0f) 
+	{
+		pitchAngle = -89.0f;
+	}
+
+	vec3 direction;
+	direction.x = cos(radians(yawAngle)) * cos(radians(pitchAngle));
+	direction.y = sin(radians(pitchAngle));
+	direction.z = sin(radians(yawAngle)) * cos(radians(pitchAngle));
+	cameraFront = normalize(direction);
+}
+
+void scroll_callback(GLFWwindow* window, double xoffset, double yoffset) 
+{
+	zoom -= (float)yoffset;
+	if (zoom < 1.0f)
+	{
+		zoom = 1.0f;
+	}
+	if (zoom > 45.0f)
+	{
+		zoom = 45.0f;
+	}
 }
 
 void processInput(GLFWwindow* window)
@@ -166,7 +216,7 @@ int main()
 	GLFWwindow* window = glfwCreateWindow(800, 600, "LearnOpenGL", NULL, NULL);
 	if (window == NULL)
 	{
-		std::cout << "Failed to create GLFW window" << std::endl;
+		cout << "Failed to create GLFW window" << endl;
 		glfwTerminate();
 		return -1;
 	}
@@ -177,7 +227,7 @@ int main()
 
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 	{
-		std::cout << "Failed to initialize GLAD " << std::endl;
+		cout << "Failed to initialize GLAD " << endl;
 		return -1;
 	}
 
@@ -185,13 +235,17 @@ int main()
 
 	// Callbacks for input or user interaction with the current window
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+	glfwSetScrollCallback(window, scroll_callback);
 	glfwSetCursorPosCallback(window, mouse_callback);
 
+	// Generating buffers
 	glGenVertexArrays(1, &VAO);
 	glGenBuffers(1, &VBO);
-	glBindVertexArray(VAO);
 
+	// Binding buffers
+	glBindVertexArray(VAO);
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+
 	glBufferData(GL_ARRAY_BUFFER, sizeof(cubeVertices), cubeVertices, GL_STATIC_DRAW);
 
 	// IMPORTANT: cubeVertices layout is (position: vec3) + (texcoord: vec2) -> stride = 5 floats
@@ -205,7 +259,7 @@ int main()
 	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, stride, (void*)(3 * sizeof(float)));
 	glEnableVertexAttribArray(1);
 
-	Shader ourShader("Vertex.vert", "Fragment.frag");
+	Shader ourShader("VertexLit.vert", "FragmentLit.frag");
 
 	// Load and create a texture
 	glGenTextures(1, &texture1);
@@ -224,16 +278,16 @@ int main()
 	{
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
 		glGenerateMipmap(GL_TEXTURE_2D);
-		std::cout << "Texture loaded successfully" << std::endl;
+		cout << "Texture loaded successfully" << endl;
 		stbi_image_free(data);
 	}
 	else 
 	{
-		std::cout << stbi_failure_reason() << std::endl;
-		std::cout << "Failed to load texture" << std::endl;
+		cout << stbi_failure_reason() << endl;
+		cout << "Failed to load texture" << endl;
 	}
 
-	// Load and create  texture2
+	// Load and create texture2
 	glGenTextures(1, &texture2);
 	glBindTexture(GL_TEXTURE_2D, texture2);
 
@@ -260,8 +314,8 @@ int main()
 	}
 
 	ourShader.use();
-	glUniform1i(glGetUniformLocation(ourShader.ID, "texture1"), 0);	
-	glUniform1i(glGetUniformLocation(ourShader.ID, "texture2"), 1);
+	//glUniform1i(glGetUniformLocation(ourShader.ID, "texture1"), 0);	
+	//glUniform1i(glGetUniformLocation(ourShader.ID, "texture2"), 1);
 
 
 	vec3 cubePosition[] = {
@@ -281,25 +335,18 @@ int main()
 	view = translate(view, vec3(0.0f, 0.0f, -3.0f));
 
 	mat4 projection;
-	projection = perspective(radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
+	
 
 	// Activating depth testing
 	glEnable(GL_DEPTH_TEST);
 
-	const float radius = 10.0f;
-
-	// Setting initial value of the camera
-	yaw = 90.0f;
-	pitch = 0.0f; 
-
-	vec3 direction;
-	direction.x = cos(radians(yaw)) * cos(radians(pitch));
-	direction.y = sin(radians(pitch));
-	direction.z = sin(radians(yaw)) * cos(radians(pitch));
+	const float radius = 10.0f; 
 
 
 	while (!glfwWindowShouldClose(window))
 	{
+		projection = perspective(radians(zoom), 800.0f / 600.0f, 0.1f, 100.0f);
+
 		float currentFrame = glfwGetTime();
 		deltaTime = currentFrame - lastFrame;
 		lastFrame = currentFrame;
@@ -325,7 +372,7 @@ int main()
 		glActiveTexture(GL_TEXTURE1);
 		glBindTexture(GL_TEXTURE_2D, texture2);
 
-		glBindVertexArray(VAO);
+		
 		for (unsigned int i = 0; i < 10; i++)
 		{
 			mat4 model = mat4(1.0f);
