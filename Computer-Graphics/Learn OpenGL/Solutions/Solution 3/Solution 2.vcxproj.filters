@@ -24,12 +24,6 @@
     <ClCompile Include="..\..\glad\src\glad.c">
       <Filter>File di origine</Filter>
     </ClCompile>
-    <ClCompile Include="Shader.cpp">
-      <Filter>File di origine</Filter>
-    </ClCompile>
-    <ClCompile Include="Shader.h">
-      <Filter>File di intestazione</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Vertex.vert">
@@ -42,6 +36,9 @@
       <Filter>File di risorse</Filter>
     </None>
     <None Include="VertexLit.vert">
+      <Filter>File di risorse</Filter>
+    </None>
+    <None Include="FragmentCubeLit.frag">
       <Filter>File di risorse</Filter>
     </None>
   </ItemGroup>
@@ -58,6 +55,9 @@
       <Filter>File di intestazione</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\..\..\..\..\Downloads\Camera.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\..\..\..\Downloads\Shader.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
   </ItemGroup>

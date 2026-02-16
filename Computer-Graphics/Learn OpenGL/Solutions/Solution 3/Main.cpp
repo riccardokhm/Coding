@@ -84,6 +84,9 @@ vec3 cameraPos = vec3(0.0f, 0.0f, 3.0f);
 vec3 cameraFront = vec3(0.0f, 0.0f, -1.0f);
 vec3 cameraUp = vec3(0.0f, 1.0f, 0.0f);
 
+// Light settings
+vec3 lightPos = vec3(1.2f, 1.0f, 2.0f);
+
 #pragma endregion
 
 
@@ -231,6 +234,8 @@ int main()
 		return -1;
 	}
 
+	// Activating depth testing
+	glEnable(GL_DEPTH_TEST);
 	glViewport(0, 0, 800, 600);
 
 	// Callbacks for input or user interaction with the current window
@@ -238,15 +243,18 @@ int main()
 	glfwSetScrollCallback(window, scroll_callback);
 	glfwSetCursorPosCallback(window, mouse_callback);
 
+	Shader litShader("VertexLit.vert", "FragmentLit.frag");
+	Shader cubeLitShader("VertexLit.vert", "FragmentCubeLit.frag");
+
 	// Generating buffers
 	glGenVertexArrays(1, &VAO);
 	glGenBuffers(1, &VBO);
 
 	// Binding buffers
-	glBindVertexArray(VAO);
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-
 	glBufferData(GL_ARRAY_BUFFER, sizeof(cubeVertices), cubeVertices, GL_STATIC_DRAW);
+
+	glBindVertexArray(VAO);
 
 	// IMPORTANT: cubeVertices layout is (position: vec3) + (texcoord: vec2) -> stride = 5 floats
 	constexpr GLsizei stride = 5 * sizeof(float);
@@ -255,68 +263,9 @@ int main()
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, stride, (void*)0);
 	glEnableVertexAttribArray(0);
 
-	// TexCoord attribute (no color in cubeVertices)
-	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, stride, (void*)(3 * sizeof(float)));
-	glEnableVertexAttribArray(1);
-
-	Shader ourShader("VertexLit.vert", "FragmentLit.frag");
-
-	// Load and create a texture
-	glGenTextures(1, &texture1);
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, texture1);
-
-	// set the texture wrapping/filtering options (on the currently bound texture object)
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-	unsigned char* data = stbi_load(filePathTexture1.c_str(), &width, &height, &nrChannels, 0);
-
-	if (data)
-	{
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
-		glGenerateMipmap(GL_TEXTURE_2D);
-		cout << "Texture loaded successfully" << endl;
-		stbi_image_free(data);
-	}
-	else 
-	{
-		cout << stbi_failure_reason() << endl;
-		cout << "Failed to load texture" << endl;
-	}
-
-	// Load and create texture2
-	glGenTextures(1, &texture2);
-	glBindTexture(GL_TEXTURE_2D, texture2);
-
-	// set the texture wrapping parameters
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// set texture wrapping to GL_REPEAT (default wrapping method)
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-
-	// set texture filtering parameters
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	data = stbi_load(filePathTexture2.c_str(), &width, &height, &nrChannels, 0);
-
-	if (data)
-	{
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
-		glGenerateMipmap(GL_TEXTURE_2D);
-		std::cout << "Texture loaded successfully" << std::endl;
-		stbi_image_free(data);
-	}
-	else
-	{
-		std::cout << stbi_failure_reason() << std::endl;
-		std::cout << "Failed to load texture" << std::endl;
-	}
-
-	ourShader.use();
-	//glUniform1i(glGetUniformLocation(ourShader.ID, "texture1"), 0);	
-	//glUniform1i(glGetUniformLocation(ourShader.ID, "texture2"), 1);
-
+	// Generating and binding buffer for the light
+	glGenVertexArrays(1, &lightVAO);
+	glBindVertexArray(lightVAO);
 
 	vec3 cubePosition[] = {
 		vec3(0.0f, 0.0f, 0.0f),
@@ -335,11 +284,6 @@ int main()
 	view = translate(view, vec3(0.0f, 0.0f, -3.0f));
 
 	mat4 projection;
-	
-
-	// Activating depth testing
-	glEnable(GL_DEPTH_TEST);
-
 	const float radius = 10.0f; 
 
 
@@ -357,20 +301,21 @@ int main()
         // Recompute view matrix from camera position updated by WASD
         view = lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
 
-		// Update the uniform green color
-		float timeValue = glfwGetTime();
-		float greenValue = (sin(timeValue) / 2.0f) + 0.5f;
-
 		//rendering commands
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+		litShader.use();
+		litShader.setVec3("objectColor", 1.0f, 0.5f, 0.31f);
+		litShader.setVec3("lightColor", 1.0f, 1.0f, 1.0f);
 
-		//drawing commands
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, texture1);
-		glActiveTexture(GL_TEXTURE1);
-		glBindTexture(GL_TEXTURE_2D, texture2);
+
+		litShader.setMat4("projection", projection);
+		litShader.setMat4("view", view);
+
+		// world transformation
+		glm::mat4 model = glm::mat4(1.0f);
+		litShader.setMat4("model", model);
 
 		
 		for (unsigned int i = 0; i < 10; i++)
@@ -381,17 +326,28 @@ int main()
 			float angle = 20.0f * i;
 			model = rotate(model, radians(angle), vec3(1.0f, 0.3f, 0.5f));
 
-			int modelLoc = glGetUniformLocation(ourShader.ID, "model");
+			int modelLoc = glGetUniformLocation(litShader.ID, "model");
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, value_ptr(model));
 
-			int viewLoc = glGetUniformLocation(ourShader.ID, "view");
+			int viewLoc = glGetUniformLocation(litShader.ID, "view");
 			glUniformMatrix4fv(viewLoc, 1, GL_FALSE, value_ptr(view));
 
-			int projectiveLoc = glGetUniformLocation(ourShader.ID, "projection");
+			int projectiveLoc = glGetUniformLocation(litShader.ID, "projection");
 			glUniformMatrix4fv(projectiveLoc, 1, GL_FALSE, value_ptr(projection));
 
 			glDrawArrays(GL_TRIANGLES, 0, 36);
 		}
+
+		cubeLitShader.use();
+		cubeLitShader.setMat4("projection", projection);
+		cubeLitShader.setMat4("view", view);
+		model = glm::mat4(1.0f);
+		model = glm::translate(model, lightPos);
+		model = glm::scale(model, glm::vec3(0.2f)); // a smaller cube
+		cubeLitShader.setMat4("model", model);
+
+		glBindVertexArray(lightVAO);
+		glDrawArrays(GL_TRIANGLES, 0, 36);
 		
 		//check and call events and swap the buffers
 		glfwSwapBuffers(window);
@@ -400,8 +356,8 @@ int main()
 
 	//  de allocate all resources once they've outlived their purpose:
 	glDeleteVertexArrays(1, &VAO);
+	glDeleteVertexArrays(1, &lightVAO);
 	glDeleteBuffers(1, &VBO);
-	glDeleteProgram(ourShader.ID);
 
 	glfwTerminate();
 	return 0;
