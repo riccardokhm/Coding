@@ -57,7 +57,7 @@
     <ClInclude Include="..\..\..\..\..\..\..\..\Downloads\Camera.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\..\..\..\Downloads\Shader.h">
+    <ClInclude Include="Shader.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
   </ItemGroup>

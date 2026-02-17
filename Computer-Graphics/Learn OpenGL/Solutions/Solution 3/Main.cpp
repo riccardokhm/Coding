@@ -5,10 +5,8 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <iostream>
 #include <string>
-#include "Shader.h"	
+#include <Shader.h>
 
-#define STB_IMAGE_IMPLEMENTATION
-#include "STB/stb_image.h"
 #include "Main.h"
 
 using namespace std;
@@ -33,51 +31,52 @@ string filePathTexture1 = solutionDir + "Floor.jpg";
 string filePathTexture2 = solutionDir + "Wall.jpg";
 
 float cubeVertices[] = {
-	-0.5f, -0.5f, -0.5f, 0.0f, 0.0f,
-	0.5f, -0.5f, -0.5f,1.0f,0.0f,
-	0.5f, 0.5f, -0.5f,1.0f, 1.0f,
-	0.5f, 0.5f, -0.5f, 1.0f, 1.0f, 
-	-0.5f, 0.5f,-0.5f, 0.0f, 1.0f,
-	-0.5f,-0.5f, -0.5f, 0.0f,0.0f,
+	//position          //normals           //texture coordinate
+	-0.5f, -0.5f, -0.5f,0.0f, 0.0f, -1.0f,  0.0f, 0.0f,
+	0.5f, -0.5f, -0.5f, 0.0f, 0.0f, -1.0f,  1.0f,0.0f,
+	0.5f, 0.5f, -0.5f,  0.0f, 0.0f, -1.0f,  1.0f, 1.0f,
+	0.5f, 0.5f, -0.5f,  0.0f, 0.0f, -1.0f,  1.0f, 1.0f,
+	-0.5f, 0.5f,-0.5f,  0.0f, 0.0f, -1.0f,  0.0f, 1.0f,
+	-0.5f,-0.5f, -0.5f, 0.0f, 0.0f, -1.0f,  0.0f,0.0f,
 
-	-0.5f,-0.5f, 0.5f, 0.0f, 0.0f, 
-	0.5f,-0.5f, 0.5f, 1.0f,0.0f,
-	0.5f, 0.5f, 0.5f, 1.0f, 1.0f, 
-	0.5f, 0.5f, 0.5f, 1.0f, 1.0f,
-	-0.5f, 0.5f, 0.5f,0.0f, 1.0f,
-	-0.5f, -0.5f, 0.5f,0.0f, 0.0f,
+	-0.5f,-0.5f, 0.5f,   0.0f, 0.0f, 1.0f,    0.0f, 0.0f,
+	0.5f,-0.5f, 0.5f,    0.0f, 0.0f, 1.0f,    1.0f,0.0f,
+	0.5f, 0.5f, 0.5f,    0.0f, 0.0f, 1.0f,    1.0f, 1.0f,
+	0.5f, 0.5f, 0.5f,    0.0f, 0.0f, 1.0f,    1.0f, 1.0f,
+	-0.5f, 0.5f, 0.5f,   0.0f, 0.0f, 1.0f,    0.0f, 1.0f,
+	-0.5f, -0.5f, 0.5f,  0.0f, 0.0f, 1.0f,    0.0f, 0.0f,
 
-	-0.5f,0.5f, 0.5f, 1.0f, 0.0f,
-	-0.5f, 0.5f, -0.5f,1.0f, 1.0f,
-	-0.5f, -0.5f, -0.5f, 0.0f, 1.0f,
-	-0.5f, -0.5f, -0.5f, 0.0f, 1.0f,
-	-0.5f, -0.5f, 0.5f, 0.0f, 0.0f,
-	-0.5f, 0.5f, 0.5f, 1.0f, 0.0f,
+	-0.5f,0.5f, 0.5f,    -1.0f, 0.0f, 0.0f,     1.0f, 0.0f,
+	-0.5f, 0.5f, -0.5f,  -1.0f, 0.0f, 0.0f,     1.0f, 1.0f,
+	-0.5f, -0.5f, -0.5f, -1.0f, 0.0f, 0.0f,     0.0f, 1.0f,
+	-0.5f, -0.5f, -0.5f, -1.0f, 0.0f, 0.0f,     0.0f, 1.0f,
+	-0.5f, -0.5f, 0.5f,  -1.0f, 0.0f, 0.0f,     0.0f, 0.0f,
+	-0.5f, 0.5f, 0.5f,   -1.0f, 0.0f, 0.0f,     1.0f, 0.0f,
 
-	0.5f, 0.5f, 0.5f, 1.0f, 0.0f,
-	0.5f,0.5f, -0.5f, 1.0f,1.0f,
-	0.5f, -0.5f, -0.5f, 0.0f, 1.0f,
-	0.5f, -0.5f, -0.5f, 0.0f, 1.0f, 
-	0.5f, -0.5f, 0.5f,0.0f, 0.0f,
-	0.5f, 0.5f, 0.5f, 1.0f, 0.0f,
+	0.5f, 0.5f, 0.5f,     1.0f, 0.0f, 0.0f,     1.0f, 0.0f,
+	0.5f,0.5f, -0.5f,     1.0f, 0.0f, 0.0f,     1.0f,1.0f,
+	0.5f, -0.5f, -0.5f,   1.0f, 0.0f, 0.0f,     0.0f, 1.0f,
+	0.5f, -0.5f, -0.5f,   1.0f, 0.0f, 0.0f,     0.0f, 1.0f,
+	0.5f, -0.5f, 0.5f,    1.0f, 0.0f, 0.0f,     0.0f, 0.0f,
+	0.5f, 0.5f, 0.5f,     1.0f, 0.0f, 0.0f,     1.0f, 0.0f,
 
-	-0.5f, -0.5f, -0.5f, 0.0f, 1.0f, 
-	0.5f, -0.5f, -0.5f, 1.0f, 1.0f,
-	0.5f, -0.5f,0.5f, 1.0f, 0.0f,
-	0.5f, -0.5f, 0.5f, 1.0f, 0.0f, 
-	-0.5f, -0.5f, 0.5f, 0.0f, 0.0f,
-	-0.5f, -0.5f, -0.5f, 0.0f, 1.0f,
+	-0.5f, -0.5f, -0.5f,  0.0f, -1.0f, 0.0f,     0.0f, 1.0f,
+	0.5f, -0.5f, -0.5f,   0.0f, -1.0f, 0.0f,     1.0f, 1.0f,
+	0.5f, -0.5f,0.5f,     0.0f, -1.0f, 0.0f,     1.0f, 0.0f,
+	0.5f, -0.5f, 0.5f,    0.0f, -1.0f, 0.0f,     1.0f, 0.0f,
+	-0.5f, -0.5f, 0.5f,   0.0f, -1.0f, 0.0f,     0.0f, 0.0f,
+	-0.5f, -0.5f, -0.5f,  0.0f, -1.0f, 0.0f,     0.0f, 1.0f,
 
-	-0.5f, 0.5f, -0.5f, 0.0f, 1.0f, 
-	0.5f, 0.5f, -0.5f, 1.0f, 1.0f, 
-	0.5f, 0.5f, 0.5f, 1.0f, 1.0f, 
-	0.5f, 0.5f, 0.5f, 1.0f, 0.0f, 
-	-0.5f, 0.5f, 0.5f, 0.0f, 0.0f, 
-	-0.5f, 0.5f, -0.5f, 0.0f, 1.0f
+	-0.5f, 0.5f, -0.5f,   0.0f, 1.0f, 0.0f,     0.0f, 1.0f,
+	0.5f, 0.5f, -0.5f,    0.0f, 1.0f, 0.0f,     1.0f, 1.0f,
+	0.5f, 0.5f, 0.5f,     0.0f, 1.0f, 0.0f,     1.0f, 1.0f,
+	0.5f, 0.5f, 0.5f,     0.0f, 1.0f, 0.0f,     1.0f, 0.0f,
+	-0.5f, 0.5f, 0.5f,    0.0f, 1.0f, 0.0f,     0.0f, 0.0f,
+	-0.5f, 0.5f, -0.5f,   0.0f, 1.0f, 0.0f,     0.0f, 1.0f
 };
 
 float deltaTime, lastFrame;
-float pitchAngle, yawAngle, zoom;
+float pitchAngle = 0.0f, yawAngle = 90.0f, zoom = 45.0f;
 
 // Set camera position
 vec3 cameraPos = vec3(0.0f, 0.0f, 3.0f);
@@ -257,15 +256,23 @@ int main()
 	glBindVertexArray(VAO);
 
 	// IMPORTANT: cubeVertices layout is (position: vec3) + (texcoord: vec2) -> stride = 5 floats
-	constexpr GLsizei stride = 5 * sizeof(float);
+	constexpr GLsizei stride = 8 * sizeof(float);
 
 	// Position attribute
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, stride, (void*)0);
 	glEnableVertexAttribArray(0);
 
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, stride, (void*)0);
+	glEnableVertexAttribArray(1);
+
 	// Generating and binding buffer for the light
 	glGenVertexArrays(1, &lightVAO);
 	glBindVertexArray(lightVAO);
+
+    // The light's VAO should use the same VBO layout (position only)
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, stride, (void*)0);
+    glEnableVertexAttribArray(0);
 
 	vec3 cubePosition[] = {
 		vec3(0.0f, 0.0f, 0.0f),
@@ -281,11 +288,10 @@ int main()
 	};
 
 	mat4 view = mat4(1.0f);
-	view = translate(view, vec3(0.0f, 0.0f, -3.0f));
+	view = translate(view, vec3(0.0f, 0.0f, -5.0f));
 
 	mat4 projection;
-	const float radius = 10.0f; 
-
+	litShader.setVec3("lightPos", lightPos);
 
 	while (!glfwWindowShouldClose(window))
 	{
@@ -313,27 +319,17 @@ int main()
 		litShader.setMat4("projection", projection);
 		litShader.setMat4("view", view);
 
-		// world transformation
-		glm::mat4 model = glm::mat4(1.0f);
-		litShader.setMat4("model", model);
-
+		mat4 model;
 		
 		for (unsigned int i = 0; i < 10; i++)
 		{
-			mat4 model = mat4(1.0f);
+			model = mat4(1.0f);
 
 			model = translate(model, cubePosition[i]);
 			float angle = 20.0f * i;
 			model = rotate(model, radians(angle), vec3(1.0f, 0.3f, 0.5f));
 
-			int modelLoc = glGetUniformLocation(litShader.ID, "model");
-			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, value_ptr(model));
-
-			int viewLoc = glGetUniformLocation(litShader.ID, "view");
-			glUniformMatrix4fv(viewLoc, 1, GL_FALSE, value_ptr(view));
-
-			int projectiveLoc = glGetUniformLocation(litShader.ID, "projection");
-			glUniformMatrix4fv(projectiveLoc, 1, GL_FALSE, value_ptr(projection));
+			litShader.setMat4("model", model);
 
 			glDrawArrays(GL_TRIANGLES, 0, 36);
 		}
@@ -341,9 +337,10 @@ int main()
 		cubeLitShader.use();
 		cubeLitShader.setMat4("projection", projection);
 		cubeLitShader.setMat4("view", view);
-		model = glm::mat4(1.0f);
-		model = glm::translate(model, lightPos);
-		model = glm::scale(model, glm::vec3(0.2f)); // a smaller cube
+
+		model = mat4(1.0f);
+		model = translate(model, lightPos);
+		model = scale(model, vec3(0.2f)); // a smaller cube
 		cubeLitShader.setMat4("model", model);
 
 		glBindVertexArray(lightVAO);

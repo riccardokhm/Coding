@@ -1,14 +1,9 @@
-﻿  glad.c
-  Main.cpp
+﻿  Main.cpp
+C:\Users\utente\Desktop\Coding\Github\Coding\Computer-Graphics\Learn OpenGL\Solutions\Solution 3\Main.cpp(121,11): warning C4244: '=': conversione da 'double' a 'float'. Possibile perdita di dati.
 C:\Users\utente\Desktop\Coding\Github\Coding\Computer-Graphics\Learn OpenGL\Solutions\Solution 3\Main.cpp(122,11): warning C4244: '=': conversione da 'double' a 'float'. Possibile perdita di dati.
-C:\Users\utente\Desktop\Coding\Github\Coding\Computer-Graphics\Learn OpenGL\Solutions\Solution 3\Main.cpp(123,11): warning C4244: '=': conversione da 'double' a 'float'. Possibile perdita di dati.
+C:\Users\utente\Desktop\Coding\Github\Coding\Computer-Graphics\Learn OpenGL\Solutions\Solution 3\Main.cpp(125,16): warning C4244: 'inizializzazione': conversione da 'double' a 'float'. Possibile perdita di dati.
 C:\Users\utente\Desktop\Coding\Github\Coding\Computer-Graphics\Learn OpenGL\Solutions\Solution 3\Main.cpp(126,16): warning C4244: 'inizializzazione': conversione da 'double' a 'float'. Possibile perdita di dati.
-C:\Users\utente\Desktop\Coding\Github\Coding\Computer-Graphics\Learn OpenGL\Solutions\Solution 3\Main.cpp(127,16): warning C4244: 'inizializzazione': conversione da 'double' a 'float'. Possibile perdita di dati.
+C:\Users\utente\Desktop\Coding\Github\Coding\Computer-Graphics\Learn OpenGL\Solutions\Solution 3\Main.cpp(128,10): warning C4244: '=': conversione da 'double' a 'float'. Possibile perdita di dati.
 C:\Users\utente\Desktop\Coding\Github\Coding\Computer-Graphics\Learn OpenGL\Solutions\Solution 3\Main.cpp(129,10): warning C4244: '=': conversione da 'double' a 'float'. Possibile perdita di dati.
-C:\Users\utente\Desktop\Coding\Github\Coding\Computer-Graphics\Learn OpenGL\Solutions\Solution 3\Main.cpp(130,10): warning C4244: '=': conversione da 'double' a 'float'. Possibile perdita di dati.
-C:\Users\utente\Desktop\Coding\Github\Coding\Computer-Graphics\Learn OpenGL\Solutions\Solution 3\Main.cpp(294,22): warning C4244: 'inizializzazione': conversione da 'double' a 'float'. Possibile perdita di dati.
-Main.obj : error LNK2019: riferimento al simbolo esterno "public: __cdecl Shader::Shader(char const *,char const *)" (??0Shader@@QEAA@PEBD0@Z) non risolto nella funzione main
-Main.obj : error LNK2019: riferimento al simbolo esterno "public: void __cdecl Shader::use(void)" (?use@Shader@@QEAAXXZ) non risolto nella funzione main
-Main.obj : error LNK2019: riferimento al simbolo esterno "public: void __cdecl Shader::setVec3(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &,float,float,float)const " (?setVec3@Shader@@QEBAXAEBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@MMM@Z) non risolto nella funzione main
-Main.obj : error LNK2019: riferimento al simbolo esterno "public: void __cdecl Shader::setMat4(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &,struct glm::mat<4,4,float,0> const &)const " (?setMat4@Shader@@QEBAXAEBV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@AEBU?$mat@$03$03M$0A@@glm@@@Z) non risolto nella funzione main
-C:\Users\utente\Desktop\Coding\Github\Coding\Computer-Graphics\Learn OpenGL\Solutions\Solution 3\x64\Debug\Solution 3.exe : fatal error LNK1120: 4 esterni non risolti
+C:\Users\utente\Desktop\Coding\Github\Coding\Computer-Graphics\Learn OpenGL\Solutions\Solution 3\Main.cpp(300,22): warning C4244: 'inizializzazione': conversione da 'double' a 'float'. Possibile perdita di dati.
+  Solution 2.vcxproj -> C:\Users\utente\Desktop\Coding\Github\Coding\Computer-Graphics\Learn OpenGL\Solutions\Solution 3\x64\Debug\Solution 3.exe
