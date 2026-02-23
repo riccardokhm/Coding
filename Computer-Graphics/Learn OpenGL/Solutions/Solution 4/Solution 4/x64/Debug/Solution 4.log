@@ -1,0 +1,34 @@
+﻿  Main.cpp
+C:\Users\utente\Desktop\Coding\Github\Coding\Computer-Graphics\Learn OpenGL\Solutions\Solution 4\src\Main.cpp(119,11): warning C4244: '=': conversione da 'double' a 'float'. Possibile perdita di dati.
+C:\Users\utente\Desktop\Coding\Github\Coding\Computer-Graphics\Learn OpenGL\Solutions\Solution 4\src\Main.cpp(120,11): warning C4244: '=': conversione da 'double' a 'float'. Possibile perdita di dati.
+C:\Users\utente\Desktop\Coding\Github\Coding\Computer-Graphics\Learn OpenGL\Solutions\Solution 4\src\Main.cpp(123,16): warning C4244: 'inizializzazione': conversione da 'double' a 'float'. Possibile perdita di dati.
+C:\Users\utente\Desktop\Coding\Github\Coding\Computer-Graphics\Learn OpenGL\Solutions\Solution 4\src\Main.cpp(124,16): warning C4244: 'inizializzazione': conversione da 'double' a 'float'. Possibile perdita di dati.
+C:\Users\utente\Desktop\Coding\Github\Coding\Computer-Graphics\Learn OpenGL\Solutions\Solution 4\src\Main.cpp(126,10): warning C4244: '=': conversione da 'double' a 'float'. Possibile perdita di dati.
+C:\Users\utente\Desktop\Coding\Github\Coding\Computer-Graphics\Learn OpenGL\Solutions\Solution 4\src\Main.cpp(127,10): warning C4244: '=': conversione da 'double' a 'float'. Possibile perdita di dati.
+C:\Users\utente\Desktop\Coding\Github\Coding\Computer-Graphics\Learn OpenGL\Solutions\Solution 4\src\Main.cpp(302,22): warning C4244: 'inizializzazione': conversione da 'double' a 'float'. Possibile perdita di dati.
+C:\Users\utente\Desktop\Coding\Github\Coding\Computer-Graphics\Learn OpenGL\Solutions\Solution 4\src\Main.cpp(307,21): warning C4244: '=': conversione da 'double' a 'T'. Possibile perdita di dati.
+C:\Users\utente\Desktop\Coding\Github\Coding\Computer-Graphics\Learn OpenGL\Solutions\Solution 4\src\Main.cpp(307,21): warning C4244:         with
+C:\Users\utente\Desktop\Coding\Github\Coding\Computer-Graphics\Learn OpenGL\Solutions\Solution 4\src\Main.cpp(307,21): warning C4244:         [
+C:\Users\utente\Desktop\Coding\Github\Coding\Computer-Graphics\Learn OpenGL\Solutions\Solution 4\src\Main.cpp(307,21): warning C4244:             T=float
+C:\Users\utente\Desktop\Coding\Github\Coding\Computer-Graphics\Learn OpenGL\Solutions\Solution 4\src\Main.cpp(307,21): warning C4244:         ]
+C:\Users\utente\Desktop\Coding\Github\Coding\Computer-Graphics\Learn OpenGL\Solutions\Solution 4\src\Main.cpp(308,35): warning C4244: '=': conversione da 'double' a 'T'. Possibile perdita di dati.
+C:\Users\utente\Desktop\Coding\Github\Coding\Computer-Graphics\Learn OpenGL\Solutions\Solution 4\src\Main.cpp(308,35): warning C4244:         with
+C:\Users\utente\Desktop\Coding\Github\Coding\Computer-Graphics\Learn OpenGL\Solutions\Solution 4\src\Main.cpp(308,35): warning C4244:         [
+C:\Users\utente\Desktop\Coding\Github\Coding\Computer-Graphics\Learn OpenGL\Solutions\Solution 4\src\Main.cpp(308,35): warning C4244:             T=float
+C:\Users\utente\Desktop\Coding\Github\Coding\Computer-Graphics\Learn OpenGL\Solutions\Solution 4\src\Main.cpp(308,35): warning C4244:         ]
+C:\Users\utente\Desktop\Coding\Github\Coding\Computer-Graphics\Learn OpenGL\Solutions\Solution 4\src\Main.cpp(311,21): warning C4244: '=': conversione da 'double' a 'T'. Possibile perdita di dati.
+C:\Users\utente\Desktop\Coding\Github\Coding\Computer-Graphics\Learn OpenGL\Solutions\Solution 4\src\Main.cpp(311,21): warning C4244:         with
+C:\Users\utente\Desktop\Coding\Github\Coding\Computer-Graphics\Learn OpenGL\Solutions\Solution 4\src\Main.cpp(311,21): warning C4244:         [
+C:\Users\utente\Desktop\Coding\Github\Coding\Computer-Graphics\Learn OpenGL\Solutions\Solution 4\src\Main.cpp(311,21): warning C4244:             T=float
+C:\Users\utente\Desktop\Coding\Github\Coding\Computer-Graphics\Learn OpenGL\Solutions\Solution 4\src\Main.cpp(311,21): warning C4244:         ]
+C:\Users\utente\Desktop\Coding\Github\Coding\Computer-Graphics\Learn OpenGL\Solutions\Solution 4\src\Main.cpp(312,21): warning C4244: '=': conversione da 'double' a 'T'. Possibile perdita di dati.
+C:\Users\utente\Desktop\Coding\Github\Coding\Computer-Graphics\Learn OpenGL\Solutions\Solution 4\src\Main.cpp(312,21): warning C4244:         with
+C:\Users\utente\Desktop\Coding\Github\Coding\Computer-Graphics\Learn OpenGL\Solutions\Solution 4\src\Main.cpp(312,21): warning C4244:         [
+C:\Users\utente\Desktop\Coding\Github\Coding\Computer-Graphics\Learn OpenGL\Solutions\Solution 4\src\Main.cpp(312,21): warning C4244:             T=float
+C:\Users\utente\Desktop\Coding\Github\Coding\Computer-Graphics\Learn OpenGL\Solutions\Solution 4\src\Main.cpp(312,21): warning C4244:         ]
+C:\Users\utente\Desktop\Coding\Github\Coding\Computer-Graphics\Learn OpenGL\Solutions\Solution 4\src\Main.cpp(313,21): warning C4244: '=': conversione da 'double' a 'T'. Possibile perdita di dati.
+C:\Users\utente\Desktop\Coding\Github\Coding\Computer-Graphics\Learn OpenGL\Solutions\Solution 4\src\Main.cpp(313,21): warning C4244:         with
+C:\Users\utente\Desktop\Coding\Github\Coding\Computer-Graphics\Learn OpenGL\Solutions\Solution 4\src\Main.cpp(313,21): warning C4244:         [
+C:\Users\utente\Desktop\Coding\Github\Coding\Computer-Graphics\Learn OpenGL\Solutions\Solution 4\src\Main.cpp(313,21): warning C4244:             T=float
+C:\Users\utente\Desktop\Coding\Github\Coding\Computer-Graphics\Learn OpenGL\Solutions\Solution 4\src\Main.cpp(313,21): warning C4244:         ]
+  Solution 4.vcxproj -> C:\Users\utente\Desktop\Coding\Github\Coding\Computer-Graphics\Learn OpenGL\Solutions\Solution 4\x64\Debug\Solution 4.exe

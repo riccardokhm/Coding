@@ -1,9 +1,1 @@
-﻿  Main.cpp
-C:\Users\utente\Desktop\Coding\Github\Coding\Computer-Graphics\Learn OpenGL\Solutions\Solution 3\Main.cpp(121,11): warning C4244: '=': conversione da 'double' a 'float'. Possibile perdita di dati.
-C:\Users\utente\Desktop\Coding\Github\Coding\Computer-Graphics\Learn OpenGL\Solutions\Solution 3\Main.cpp(122,11): warning C4244: '=': conversione da 'double' a 'float'. Possibile perdita di dati.
-C:\Users\utente\Desktop\Coding\Github\Coding\Computer-Graphics\Learn OpenGL\Solutions\Solution 3\Main.cpp(125,16): warning C4244: 'inizializzazione': conversione da 'double' a 'float'. Possibile perdita di dati.
-C:\Users\utente\Desktop\Coding\Github\Coding\Computer-Graphics\Learn OpenGL\Solutions\Solution 3\Main.cpp(126,16): warning C4244: 'inizializzazione': conversione da 'double' a 'float'. Possibile perdita di dati.
-C:\Users\utente\Desktop\Coding\Github\Coding\Computer-Graphics\Learn OpenGL\Solutions\Solution 3\Main.cpp(128,10): warning C4244: '=': conversione da 'double' a 'float'. Possibile perdita di dati.
-C:\Users\utente\Desktop\Coding\Github\Coding\Computer-Graphics\Learn OpenGL\Solutions\Solution 3\Main.cpp(129,10): warning C4244: '=': conversione da 'double' a 'float'. Possibile perdita di dati.
-C:\Users\utente\Desktop\Coding\Github\Coding\Computer-Graphics\Learn OpenGL\Solutions\Solution 3\Main.cpp(300,22): warning C4244: 'inizializzazione': conversione da 'double' a 'float'. Possibile perdita di dati.
-  Solution 2.vcxproj -> C:\Users\utente\Desktop\Coding\Github\Coding\Computer-Graphics\Learn OpenGL\Solutions\Solution 3\x64\Debug\Solution 3.exe
+﻿  Solution 2.vcxproj -> C:\Users\utente\Desktop\Coding\Github\Coding\Computer-Graphics\Learn OpenGL\Solutions\Solution 3\x64\Debug\Solution 3.exe

@@ -21,10 +21,9 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{9ca5efe8-4822-4268-80bd-e3b78af48947}</ProjectGuid>
-    <RootNamespace>Solution 2</RootNamespace>
+    <ProjectGuid>{72347911-aeb0-4081-bc32-dbd9b33844be}</ProjectGuid>
+    <RootNamespace>Solution4</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-    <ProjectName>Solution 3</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -72,7 +71,11 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>C:\Users\utente\Desktop\Coding\Github\Coding\Computer-Graphics\Learn OpenGL\Include;J:\Progetti Riccardo\Github\Coding\Computer-Graphics\Learn OpenGL\Include;${SolutionDir};$(IncludePath)</IncludePath>
+    <ExternalIncludePath>$(SolutionDir)include;J:\Progetti Riccardo\Github\Coding\Computer-Graphics\Learn OpenGL\Include;C:\Users\utente\Desktop\Coding\Github\Coding\Computer-Graphics\Learn OpenGL\Include;$(ExternalIncludePath)</ExternalIncludePath>
+    <LibraryPath>C:\Users\utente\Desktop\Coding\Github\Coding\Computer-Graphics\Learn OpenGL\Libs;J:\Progetti Riccardo\Github\Coding\Computer-Graphics\Learn OpenGL\Libs;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ExternalIncludePath>C:\Users\utente\Desktop\Coding\Github\Coding\Computer-Graphics\Learn OpenGL\Solutions\Solution 4\include;C:\Users\utente\Desktop\Coding\Github\Coding\Computer-Graphics\Learn OpenGL\Include;$(ExternalIncludePath)</ExternalIncludePath>
     <LibraryPath>C:\Users\utente\Desktop\Coding\Github\Coding\Computer-Graphics\Learn OpenGL\Libs;J:\Progetti Riccardo\Github\Coding\Computer-Graphics\Learn OpenGL\Libs;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -98,8 +101,6 @@
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <EnableCOMDATFolding>true</EnableCOMDATFolding>
-      <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
@@ -109,7 +110,6 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;_SOLUTIONDIR=R"($(SolutionDir))";%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -128,15 +128,10 @@
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <EnableCOMDATFolding>true</EnableCOMDATFolding>
-      <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="..\..\glad\src\glad.c" />
-    <ClCompile Include="Main.cpp" />
-  </ItemGroup>
   <ItemGroup>
     <None Include="Fragment.frag" />
     <None Include="FragmentCubeLit.frag" />
@@ -145,13 +140,18 @@
     <None Include="VertexLit.vert" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Floor.jpg" />
-    <Image Include="Wall.jpg" />
+    <ClCompile Include="src\glad.c" />
+    <ClCompile Include="src\Main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Camera.h" />
-    <ClInclude Include="Main.h" />
-    <ClInclude Include="Shader.h" />
+    <ClInclude Include="include\Camera.h" />
+    <ClInclude Include="include\filesystem.h" />
+    <ClInclude Include="include\Shader.h" />
+    <ClInclude Include="include\stb_image.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="resources\container2.png" />
+    <Image Include="resources\container2_specular.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

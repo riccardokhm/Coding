@@ -6,8 +6,8 @@
 #include <iostream>
 #include <string>
 #include <Shader.h>
-
-#include "Main.h"
+#include <stb_image.h>
+#include <filesystem.h>
 
 using namespace std;
 using namespace glm;
@@ -25,10 +25,12 @@ bool isWireframe = false, isFirstMousePosition = true;
 float lastX = 400;
 float lastY = 300;
 
+//URL for materials' components table
+// http://devernay.free.fr/cours/opengl/materials.html
+
 // Usa std::string per concatenare percorsi
 string solutionDir = _SOLUTIONDIR;
-string filePathTexture1 = solutionDir + "Floor.jpg";
-string filePathTexture2 = solutionDir + "Wall.jpg";
+string filePathTexture1 = solutionDir + "\\resources\\container2.png";
 
 float cubeVertices[] = {
 	//position          //normals           //texture coordinate
@@ -201,6 +203,43 @@ void processInput(GLFWwindow* window)
 		
 }
 
+unsigned int loadTexture(char const* path)
+{
+	unsigned int textureID;
+	glGenTextures(1, &textureID);
+
+	int width, height, nrComponents;
+	unsigned char* data = stbi_load(path, &width, &height, &nrComponents, 0);
+	if (data)
+	{
+		GLenum format;
+		if (nrComponents == 1)
+			format = GL_RED;
+		else if (nrComponents == 3)
+			format = GL_RGB;
+		else if (nrComponents == 4)
+			format = GL_RGBA;
+
+		glBindTexture(GL_TEXTURE_2D, textureID);
+		glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
+		glGenerateMipmap(GL_TEXTURE_2D);
+
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+		stbi_image_free(data);
+	}
+	else
+	{
+		std::cout << "Texture failed to load at path: " << path << std::endl;
+		stbi_image_free(data);
+	}
+
+	return textureID;
+}
+
 #pragma endregion
 
 
@@ -279,6 +318,8 @@ int main()
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, stride, (void*)0);
     glEnableVertexAttribArray(0);
 
+	unsigned int diffuseMap = loadTexture(FileSystem::getPath("resources/container2.png").c_str());
+
 	vec3 cubePosition[] = {
 		vec3(0.0f, 0.0f, 0.0f),
 		vec3(2.0f, 5.0f, -15.0f),
@@ -309,6 +350,14 @@ int main()
 		lightPos.x = 1.0f + sin(glfwGetTime()) * 2.0f;
 		lightPos.y = sin(glfwGetTime()) * 1.0f;
 
+		vec3 lightColor;
+		lightColor.x = sin(glfwGetTime() * 2.0f);
+		lightColor.y = sin(glfwGetTime() * 0.7f);
+		lightColor.z = sin(glfwGetTime() * 1.3f);
+
+		vec3 diffuseColor = lightColor * vec3(0.5f); // Decrease the influence
+		vec3 ambientColor = diffuseColor * vec3(0.2f); // Low influence
+
         //events
         processInput(window);
 
@@ -320,11 +369,19 @@ int main()
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		
 		glBindVertexArray(VAO);
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, diffuseMap);
+
 		litShader.use();
-		litShader.setVec3("lightPos", lightPos);
-		litShader.setVec3("objectColor", 1.0f, 0.5f, 0.31f);
-		litShader.setVec3("lightColor", 1.0f, 1.0f, 1.0f);
-		litShader.setVec3("viewPos", cameraPos);
+		litShader.setVec3("light.position", lightPos);
+		litShader.setVec3("light.ambient", ambientColor);
+		litShader.setVec3("light.diffuse", diffuseColor);
+		litShader.setVec3("light.specular", 1.0f, 1.0f, 1.0f);
+
+		litShader.setVec3("material.ambient", 1.0f, 0.5f, 0.31f);
+		litShader.setInt("material.diffuse", 0);
+		litShader.setVec3("material.specular", 0.5f, 0.5f, 0.5f);
+		litShader.setFloat("material.shininess", 32.0f);
 
 		litShader.setMat4("projection", projection);
 		litShader.setMat4("view", view);

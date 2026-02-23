@@ -43,21 +43,21 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\..\..\..\..\..\..\Downloads\Floor.jpg">
-      <Filter>Textures</Filter>
-    </Image>
     <Image Include="Wall.jpg">
       <Filter>Textures</Filter>
+    </Image>
+    <Image Include="Floor.jpg">
+      <Filter>File di risorse</Filter>
     </Image>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Main.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\..\..\..\Downloads\Camera.h">
+    <ClInclude Include="Shader.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
-    <ClInclude Include="Shader.h">
+    <ClInclude Include="Camera.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
   </ItemGroup>
