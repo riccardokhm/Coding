@@ -6,8 +6,8 @@
 #include <iostream>
 #include <string>
 #include <Shader.h>
-#include <stb_image.h>
-#include <filesystem.h>
+#define STB_IMAGE_IMPLEMENTATION
+#include "stb_image.h"
 
 using namespace std;
 using namespace glm;
@@ -318,7 +318,12 @@ int main()
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, stride, (void*)0);
     glEnableVertexAttribArray(0);
 
-	unsigned int diffuseMap = loadTexture(FileSystem::getPath("resources/container2.png").c_str());
+	string diffuseMapPath = solutionDir + "\\resources\\container2.png";
+	string specularMapPath = solutionDir + "\\resources\\container2_specular.png";
+	string emissionMapPath = solutionDir + "\\resources\\matrix.jpg";
+	unsigned int diffuseMap = loadTexture(diffuseMapPath.c_str());
+	unsigned int specularMap = loadTexture(specularMapPath.c_str());
+	unsigned int emissionMap = loadTexture(emissionMapPath.c_str());
 
 	vec3 cubePosition[] = {
 		vec3(0.0f, 0.0f, 0.0f),
@@ -350,13 +355,16 @@ int main()
 		lightPos.x = 1.0f + sin(glfwGetTime()) * 2.0f;
 		lightPos.y = sin(glfwGetTime()) * 1.0f;
 
-		vec3 lightColor;
+		vec3 lightColor = vec3(1.0f);
+		/*
 		lightColor.x = sin(glfwGetTime() * 2.0f);
 		lightColor.y = sin(glfwGetTime() * 0.7f);
 		lightColor.z = sin(glfwGetTime() * 1.3f);
+		*/
 
 		vec3 diffuseColor = lightColor * vec3(0.5f); // Decrease the influence
 		vec3 ambientColor = diffuseColor * vec3(0.2f); // Low influence
+		
 
         //events
         processInput(window);
@@ -369,19 +377,30 @@ int main()
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		
 		glBindVertexArray(VAO);
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, diffuseMap);
+
 
 		litShader.use();
 		litShader.setVec3("light.position", lightPos);
+		litShader.setVec3("light.direction", -0.2f, -1.0f, -0.3f);
 		litShader.setVec3("light.ambient", ambientColor);
 		litShader.setVec3("light.diffuse", diffuseColor);
 		litShader.setVec3("light.specular", 1.0f, 1.0f, 1.0f);
+		litShader.setFloat("light.constant", 1.0f);
+		litShader.setFloat("light.linear", 0.09f);
+		litShader.setFloat("light.quadratic", 0.032f);
 
-		litShader.setVec3("material.ambient", 1.0f, 0.5f, 0.31f);
-		litShader.setInt("material.diffuse", 0);
+		litShader.setInt("material.diffuse", 0); 
+		litShader.setInt("material.specular", 1);
+		litShader.setInt("material.emission", 2);
 		litShader.setVec3("material.specular", 0.5f, 0.5f, 0.5f);
 		litShader.setFloat("material.shininess", 32.0f);
+
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, diffuseMap);
+		glActiveTexture(GL_TEXTURE1);
+		glBindTexture(GL_TEXTURE_2D, specularMap);
+		glActiveTexture(GL_TEXTURE2);
+		glBindTexture(GL_TEXTURE_2D, emissionMap);
 
 		litShader.setMat4("projection", projection);
 		litShader.setMat4("view", view);

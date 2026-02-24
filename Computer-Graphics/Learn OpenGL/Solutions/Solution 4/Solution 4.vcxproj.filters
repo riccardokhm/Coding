@@ -55,15 +55,15 @@
     <ClInclude Include="include\stb_image.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
-    <ClInclude Include="include\filesystem.h">
-      <Filter>File di intestazione</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="resources\container2.png">
       <Filter>File di risorse\Images</Filter>
     </Image>
     <Image Include="resources\container2_specular.png">
+      <Filter>File di risorse\Images</Filter>
+    </Image>
+    <Image Include="resources\matrix.jpg">
       <Filter>File di risorse</Filter>
     </Image>
   </ItemGroup>
