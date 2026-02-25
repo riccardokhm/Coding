@@ -71,8 +71,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <ExternalIncludePath>$(SolutionDir)include;J:\Progetti Riccardo\Github\Coding\Computer-Graphics\Learn OpenGL\Include;C:\Users\utente\Desktop\Coding\Github\Coding\Computer-Graphics\Learn OpenGL\Include;$(ExternalIncludePath)</ExternalIncludePath>
-    <LibraryPath>C:\Users\utente\Desktop\Coding\Github\Coding\Computer-Graphics\Learn OpenGL\Libs;J:\Progetti Riccardo\Github\Coding\Computer-Graphics\Learn OpenGL\Libs;$(LibraryPath)</LibraryPath>
+    <ExternalIncludePath>$(SolutionDir)include;J:\Riccardo\Github\Coding\Computer-Graphics\Learn OpenGL\Include;C:\Users\utente\Desktop\Coding\Github\Coding\Computer-Graphics\Learn OpenGL\Include;$(ExternalIncludePath)</ExternalIncludePath>
+    <LibraryPath>C:\Users\utente\Desktop\Coding\Github\Coding\Computer-Graphics\Learn OpenGL\Libs;J:\Riccardo\Github\Coding\Computer-Graphics\Learn OpenGL\Libs;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ExternalIncludePath>C:\Users\utente\Desktop\Coding\Github\Coding\Computer-Graphics\Learn OpenGL\Solutions\Solution 4\include;C:\Users\utente\Desktop\Coding\Github\Coding\Computer-Graphics\Learn OpenGL\Include;$(ExternalIncludePath)</ExternalIncludePath>
