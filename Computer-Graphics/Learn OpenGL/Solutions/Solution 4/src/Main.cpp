@@ -6,8 +6,10 @@
 #include <iostream>
 #include <string>
 #include <Shader.h>
+
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
+#include <Model.h>
 
 using namespace std;
 using namespace glm;
@@ -198,9 +200,7 @@ void processInput(GLFWwindow* window)
 	}
 	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS){
 		cameraPos += normalize(cross(cameraFront, cameraUp)) * cameraSpeed;
-	}
-
-		
+	}		
 }
 
 unsigned int loadTexture(char const* path)
@@ -321,6 +321,7 @@ int main()
 	string diffuseMapPath = solutionDir + "\\resources\\container2.png";
 	string specularMapPath = solutionDir + "\\resources\\container2_specular.png";
 	string emissionMapPath = solutionDir + "\\resources\\matrix.jpg";
+
 	unsigned int diffuseMap = loadTexture(diffuseMapPath.c_str());
 	unsigned int specularMap = loadTexture(specularMapPath.c_str());
 	unsigned int emissionMap = loadTexture(emissionMapPath.c_str());
@@ -349,6 +350,10 @@ int main()
 	view = translate(view, vec3(0.0f, 0.0f, -5.0f));
 
 	mat4 projection;
+
+	string objectPath = solutionDir + "resources/backpack/backpack.obj";
+	Model obj = Model(objectPath.c_str());
+	
 
 	while (!glfwWindowShouldClose(window))
 	{
@@ -474,6 +479,8 @@ int main()
 			cubeLitShader.setMat4("model", model);
 			glDrawArrays(GL_TRIANGLES, 0, 36);
 		}
+
+		obj.Draw(litShader);
 		
 		//check and call events and swap the buffers
 		glfwSwapBuffers(window);
